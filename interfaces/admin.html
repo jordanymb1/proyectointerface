@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión Administrativa - Residencia ULEAM</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            box-sizing: border-box;
+            background-image: url('media/registrofondo.jpeg'); /* Cambia esto a tu imagen de fondo */
+            background-size: cover;
+            background-position: center;
+        }
+
+        /* Estilos del header y navegación */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            color: white;
+            display: flex;
+            justify-content: space-between; /* Mantiene el logo a la izquierda */
+            align-items: center;
+            padding: 15px 5%;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+
+        .logo h2 {
+            font-size: 24px;
+            margin: 0;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center; /* Centra el contenido del nav */
+            flex-grow: 1; /* Permite que el nav ocupe el espacio disponible */
+            gap: 15px; /* Espaciado entre enlaces */
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 14px; /* Ajuste de tamaño de fuente */
+            padding: 8px 12px; /* Espaciado interno */
+            border-radius: 5px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        nav a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            color: #ffcc00;
+        }
+
+        .content {
+            padding: 70px 5%; /* Espaciado superior para evitar superposición con el header */
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        .request-list {
+            width: 100%;
+            margin-top: 30px;
+            border-collapse: collapse;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .request-list th, .request-list td {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: left;
+        }
+
+        .request-list th {
+            background-color: #f4f4f4;
+        }
+
+        .button {
+            background-color: #ffcc00;
+            color: #333;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin: 10px 0;
+        }
+
+        .button:hover {
+            background-color: #e6b800;
+        }
+
+        .section {
+            margin-top: 40px;
+            padding: 20px;
+            background-color: #f4f4f4;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 30px; /* Espacio entre el contenido y el footer */
+        }
+
+        footer a {
+            color: #ffcc00;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="logo">
+        <h2>Residencia ULEAM</h2>
+    </div>
+    <nav>
+        <a href="index.html">Inicio</a>
+        <a href="login.html">Iniciar Sesión</a>
+        <a href="politica.html">Política de Residencia</a>
+    </nav>
+</header>
+
+<div class="content">
+    <h1>Gestión Administrativa</h1>
+
+    <h2>Lista de Solicitudes de Estudiantes</h2>
+    <table class="request-list">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Número de Identificación</th>
+                <th>Fecha de Solicitud</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Juan Pérez</td>
+                <td>1234567890</td>
+                <td>01/10/2024</td>
+                <td>En espera</td>
+                <td>
+                    <button class="button" onclick="showApproveSection()">Aprobar</button>
+                    <button class="button" onclick="showDenySection()">Denegar</button>
+                </td>
+            </tr>
+            <tr>
+                <td>Maria García</td>
+                <td>0987654321</td>
+                <td>02/10/2024</td>
+                <td>Aprobada</td>
+                <td>
+                    <button class="button" onclick="showAssignRoomSection()">Asignar Habitación</button>
+                </td>
+            </tr>
+            <!-- Agregar más filas según sea necesario -->
+        </tbody>
+    </table>
+
+    <div class="section" id="approveSection" style="display:none;">
+        <h2>Aprobar Solicitud</h2>
+        <p>Confirma que deseas aprobar la solicitud del estudiante.</p>
+        <button class="button" onclick="approveRequest()">Confirmar Aprobación</button>
+        <button class="button" onclick="hideSection('approveSection')">Cancelar</button>
+    </div>
+
+    <div class="section" id="denySection" style="display:none;">
+        <h2>Denegar Solicitud</h2>
+        <p>Confirma que deseas denegar la solicitud del estudiante.</p>
+        <button class="button" onclick="denyRequest()">Confirmar Denegación</button>
+        <button class="button" onclick="hideSection('denySection')">Cancelar</button>
+    </div>
+
+    <div class="section" id="assignRoomSection" style="display:none;">
+        <h2>Asignar Habitación</h2>
+        <p>Selecciona una habitación para asignar al estudiante:</p>
+        <select>
+            <option value="">Seleccione una habitación</option>
+            <option value="101">Habitación 101</option>
+            <option value="102">Habitación 102</option>
+            <option value="103">Habitación 103</option>
+        </select>
+        <button class="button" onclick="assignRoom()">Asignar Habitación</button>
+        <button class="button" onclick="hideSection('assignRoomSection')">Cancelar</button>
+    </div>
+
+    <h2>Estado de Pagos</h2>
+    <div>
+        <p>Aquí se puede visualizar el estado de pagos y deudas pendientes.</p>
+        <button class="button" onclick="showPaymentStatus()">Ver Estado de Pagos</button>
+    </div>
+
+    <h2>Generación de Reportes</h2>
+    <div>
+        <p>Genera reportes sobre la ocupación y uso de las residencias.</p>
+        <button class="button" onclick="generateReport()">Generar Reporte</button>
+    </div>
+</div>
+
+<footer>
+    <p>Síguenos en nuestras redes sociales:
+        <a href="https://facebook.com">Facebook</a> |
+        <a href="https://twitter.com">Twitter</a> |
+        <a href="https://instagram.com">Instagram</a>
+    </p>
+</footer>
+
+<script>
+    function showApproveSection() {
+        hideAllSections();
+        document.getElementById("approveSection").style.display = "block";
+    }
+
+    function showDenySection() {
+        hideAllSections();
+        document.getElementById("denySection").style.display = "block";
+    }
+
+    function showAssignRoomSection() {
+        hideAllSections();
+        document.getElementById("assignRoomSection").style.display = "block";
+    }
+
+    function hideSection(sectionId) {
+        document.getElementById(sectionId).style.display = "none";
+    }
+
+    function hideAllSections() {
+        document.getElementById("approveSection").style.display = "none";
+        document.getElementById("denySection").style.display = "none";
+        document.getElementById("assignRoomSection").style.display = "none";
+    }
+
+    function approveRequest() {
+        alert("Solicitud aprobada.");
+        hideAllSections();
+    }
+
+    function denyRequest() {
+        alert("Solicitud denegada.");
+        hideAllSections();
+    }
+
+    function assignRoom() {
+        alert("Habitación asignada.");
+        hideAllSections();
+    }
+
+    function showPaymentStatus() {
+        alert("Aquí se mostrará el estado de los pagos.");
+    }
+
+    function generateReport() {
+        alert("Generando el reporte...");
+    }
+</script>
+
+</body>
+</html>

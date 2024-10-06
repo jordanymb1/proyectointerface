@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Política de Residencia - Residencia ULEAM</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            box-sizing: border-box;
+            background-color: #f4f4f4; /* Fondo gris claro */
+        }
+
+        /* Estilos del header y navegación */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            color: white;
+            display: flex;
+            justify-content: space-between; /* Mantiene el logo a la izquierda */
+            align-items: center;
+            padding: 15px 5%;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+
+        .logo h2 {
+            font-size: 24px;
+            margin: 0;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center; /* Centra el contenido del nav */
+            flex-grow: 1; /* Permite que el nav ocupe el espacio disponible */
+            gap: 15px; /* Espaciado entre enlaces */
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 14px; /* Ajuste de tamaño de fuente */
+            padding: 8px 12px; /* Espaciado interno */
+            border-radius: 5px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        nav a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            color: #ffcc00;
+        }
+
+        .content {
+            display: flex; /* Usar flexbox para alinear el contenido */
+            padding: 80px 5%; /* Espaciado superior para evitar superposición con el header */
+        }
+
+        .sidebar {
+            width: 20%; /* Ancho de la barra lateral */
+            margin-right: 20px; /* Espaciado derecho */
+            background-color: white; /* Fondo blanco para la barra lateral */
+            padding: 15px;
+            border-radius: 10px; /* Bordes redondeados */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra */
+        }
+
+        .sidebar h3 {
+            color: #333;
+        }
+
+        .sidebar a {
+            display: block; /* Cada enlace en una nueva línea */
+            margin: 5px 0; /* Espaciado vertical entre enlaces */
+            color: #007bff; /* Color del enlace */
+            text-decoration: none; /* Sin subrayado */
+        }
+
+        .sidebar a:hover {
+            text-decoration: underline; /* Subrayado en hover */
+        }
+
+        .main-content {
+            flex: 1; /* Ocupa el espacio restante */
+            background-color: white; /* Fondo blanco para el contenido principal */
+            padding: 20px;
+            border-radius: 10px; /* Bordes redondeados */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra */
+        }
+
+        .main-content h2 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .main-content p {
+            margin-bottom: 15px; /* Espaciado inferior entre párrafos */
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 30px; /* Espacio entre el contenido y el footer */
+        }
+
+        footer a {
+            color: #ffcc00;
+            text-decoration: none;
+        }
+
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="logo">
+        <h2>Residencia ULEAM</h2>
+    </div>
+    <nav>
+        <a href="index.html">Inicio</a>
+        <a href="login.html">Iniciar Sesión</a>
+        <a href="registro.html">Registro</a>
+    </nav>
+</header>
+
+<div class="content">
+    <div class="sidebar">
+        <h3>Información Relacionada</h3>
+        <a href="#reglas">Reglas de la Residencia</a>
+        <a href="#derechos">Derechos de los Residentes</a>
+        <a href="#responsabilidades">Responsabilidades</a>
+        <a href="#sanciones">Sanciones</a>
+        <a href="#contacto">Contacto</a>
+    </div>
+
+    <div class="main-content">
+        <h2>Política de Residencia</h2>
+        <p>La Residencia Universitaria ULEAM tiene como objetivo proporcionar un ambiente seguro y acogedor para todos los estudiantes. A continuación, se detallan las políticas que todos los residentes deben seguir.</p>
+
+        <h3 id="reglas">Reglas de la Residencia</h3>
+        <p>1. Se debe mantener el silencio y el respeto hacia los demás residentes, especialmente en horarios de descanso.</p>
+        <p>2. Está prohibido el consumo de alcohol y sustancias ilícitas dentro de las instalaciones de la residencia.</p>
+        <p>3. Cada residente es responsable de mantener su habitación y las áreas comunes limpias.</p>
+
+        <h3 id="derechos">Derechos de los Residentes</h3>
+        <p>1. Todo residente tiene derecho a un espacio seguro y libre de acoso.</p>
+        <p>2. Los residentes pueden expresar sus inquietudes y sugerencias a la administración.</p>
+        <p>3. Derecho a utilizar todas las instalaciones y servicios proporcionados por la residencia.</p>
+
+        <h3 id="responsabilidades">Responsabilidades</h3>
+        <p>1. Los residentes deben cumplir con las reglas establecidas y mantener un comportamiento respetuoso.</p>
+        <p>2. Es responsabilidad del residente reportar cualquier daño o problema en las instalaciones.</p>
+        <p>3. Se espera que los residentes participen en actividades de convivencia organizadas por la residencia.</p>
+
+        <h3 id="sanciones">Sanciones</h3>
+        <p>1. El incumplimiento de las reglas puede resultar en advertencias o sanciones disciplinarias.</p>
+        <p>2. Las faltas graves pueden llevar a la expulsión de la residencia.</p>
+
+        <h3 id="contacto">Contacto</h3>
+        <p>Para más información sobre las políticas de residencia, por favor contactar a la administración:</p>
+        <p>Email: admin@uleam.edu.ec</p>
+        <p>Teléfono: 0987654321</p>
+    </div>
+</div>
+
+<footer>
+    <p>Síguenos en nuestras redes sociales:
+        <a href="https://facebook.com">Facebook</a> |
+        <a href="https://twitter.com">Twitter</a> |
+        <a href="https://instagram.com">Instagram</a>
+    </p>
+</footer>
+
+</body>
+</html>

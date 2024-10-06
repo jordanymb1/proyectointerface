@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Residencia Universitaria ULEAM</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            box-sizing: border-box;
+        }
+
+        /* Estilos del header y navegación */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            color: white;
+            display: flex;
+            justify-content: center; /* Centrar el contenido */
+            align-items: center;
+            padding: 15px 5%; /* Ajustar padding */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+
+        .logo {
+            position: absolute; /* Posicionar el logo de manera absoluta */
+            left: 5%; /* Espaciado a la izquierda */
+        }
+
+        .logo h2 {
+            font-size: 24px;
+            margin: 0;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center; /* Centrar los enlaces del nav */
+            gap: 20px; /* Espaciado entre enlaces */
+            flex-wrap: wrap; /* Permite que los enlaces se ajusten en varias líneas si es necesario */
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 14px; /* Ajuste de tamaño de fuente */
+            padding: 10px 15px; /* Espaciado interno */
+            border-radius: 5px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        nav a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            color: #ffcc00;
+        }
+
+        .banner {
+            background-image: url('media/portada.jpg');
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            text-align: center;
+        }
+
+        .banner h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+        }
+
+        .banner p {
+            font-size: 1.5rem;
+            max-width: 80%; /* Limitar el ancho en pantallas grandes */
+        }
+
+        .content {
+            padding: 50px 5%; /* Ajustar el padding para que se adapte mejor */
+            background-color: #f4f4f4;
+            text-align: center;
+        }
+
+        .content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            color: #333;
+        }
+
+        .services {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap; /* Permitir que se ajuste en pantallas pequeñas */
+        }
+
+        .service-item {
+            flex: 1 1 30%; /* Permite que cada elemento ocupe el 30% */
+            margin: 20px;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            min-width: 280px; /* Tamaño mínimo para mantener la legibilidad */
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        footer a {
+            color: #ffcc00;
+            text-decoration: none;
+        }
+
+        /* Estilos del carrusel */
+        .carousel {
+            margin: 50px 0;
+            position: relative;
+            width: 100%;
+            max-width: 1000px;
+            height: 500px;
+            overflow: hidden;
+            margin: auto;
+        }
+
+        .carousel img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: none;
+        }
+
+        .carousel img.active {
+            display: block;
+        }
+
+        .prev, .next {
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            width: auto;
+            padding: 16px;
+            margin-top: -22px;
+            color: white;
+            font-weight: bold;
+            font-size: 18px;
+            transition: 0.6s ease;
+            border-radius: 0 3px 3px 0;
+            user-select: none;
+        }
+
+        .next {
+            right: 0;
+            border-radius: 3px 0 0 3px;
+        }
+
+        .prev:hover, .next:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        /* Sección del panel de control del estudiante */
+        .student-panel {
+            margin: 40px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 600px; /* Ancho máximo del panel */
+            text-align: left; /* Alinear texto a la izquierda */
+            display: none; /* Ocultar por defecto */
+        }
+
+        .student-panel.active {
+            display: block; /* Mostrar solo si hay un usuario autenticado */
+        }
+
+        .student-panel h3 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: #333;
+            text-decoration: underline; /* Subrayar el título */
+        }
+
+        .student-panel p {
+            margin: 10px 0; /* Espaciado entre párrafos */
+        }
+
+        .student-panel ul {
+            list-style-type: none; /* Quitar el estilo de la lista */
+            padding-left: 0; /* Sin padding izquierdo */
+        }
+
+        .student-panel ul li {
+            background: rgba(255, 204, 0, 0.1); /* Fondo amarillo suave */
+            border-radius: 5px; /* Bordes redondeados */
+            padding: 10px; /* Espaciado interno */
+            margin: 5px 0; /* Espaciado vertical entre elementos */
+        }
+
+        /* Sección de Gestión de Residencias y Pagos */
+        .residences-management {
+            margin: 40px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 600px; /* Ancho máximo de la sección */
+            text-align: left; /* Alinear texto a la izquierda */
+        }
+
+        .residences-management h3 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: #333;
+            text-decoration: underline; /* Subrayar el título */
+        }
+
+        .residences-management table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px; /* Espaciado inferior */
+        }
+
+        .residences-management th, .residences-management td {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: left;
+        }
+
+        .residences-management th {
+            background-color: #f4f4f4;
+        }
+
+        .payment-section {
+            margin-top: 20px;
+        }
+
+        .payment-section label {
+            margin: 10px 0 5px; /* Margen para etiquetas */
+            font-weight: bold;
+        }
+
+        .payment-section input {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            margin-bottom: 15px; /* Espaciado inferior */
+        }
+
+        /* Estilo del botón de pago */
+        .submit-button {
+            background-color: #ffcc00;
+            color: #333;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .submit-button:hover {
+            background-color: #e6b800;
+        }
+
+       
+        /* Sección para ingresar detalles de la tarjeta */
+        .card-section {
+            margin-top: 20px;
+            display: none; /* Ocultar por defecto */
+        }
+
+        .card-section h4 {
+            margin-bottom: 20px;
+        }
+
+        .card-section label {
+            margin: 10px 0 5px; /* Margen para etiquetas */
+            font-weight: bold;
+        }
+
+        .card-section input {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            margin-bottom: 15px; /* Espaciado inferior */
+        }
+
+        .card-section .submit-button {
+            background-color: #28a745; /* Color verde para el botón de pago */
+        }
+
+        /* Modal para detalles de residencias */
+        .modal {
+            display: none; /* Oculto por defecto */
+            position: fixed; /* Fijo en la pantalla */
+            z-index: 1000; /* Asegurarse de que esté en la parte superior */
+            left: 0;
+            top: 0;
+            width: 100%; /* Ancho completo */
+            height: 100%; /* Alto completo */
+            overflow: auto; /* Habilitar desplazamiento si es necesario */
+            background-color: rgba(0,0,0,0.4); /* Fondo negro con opacidad */
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto; /* 15% desde arriba y centrado */
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%; /* Ancho del modal */
+            max-width: 600px; /* Máximo ancho del modal */
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="logo">
+        <h2>Residencia ULEAM</h2>
+    </div>
+    <nav>
+        <a href="registro.html">Registro</a>
+        <a href="login.html">Iniciar Sesión</a>
+        <a href="politica.html">Política de Residencia</a>
+    </nav>
+</header>
+
+<section class="banner">
+    <h1>Bienvenidos a la Residencia Universitaria ULEAM</h1>
+    <p class="texto">Ofrecemos alojamiento confortable con todas las comodidades necesarias para estudiantes de la Universidad Laica Eloy Alfaro de Manabí.</p>
+</section>
+
+<section class="content">
+    <h2>Información General</h2>
+    <div class="services">
+        <div class="service-item">
+            <h3>Habitaciones Disponibles</h3>
+            <p>Contamos con 120 habitaciones disponibles, equipadas con mobiliario moderno y acceso a internet.</p>
+        </div>
+        <div class="service-item">
+            <h3>Servicios</h3>
+            <p>Ofrecemos servicios de limpieza, lavandería, y áreas comunes para estudio y recreación.</p>
+        </div>
+        <div class="service-item">
+            <h3>Contacto</h3>
+            <p>Para más información, contacta con la administración: <br>Email: admin@uleam.edu.ec <br>Teléfono: 0987654321</p>
+        </div>
+    </div>
+</section>
+
+<!-- Carrusel de imágenes -->
+<h2 style="text-align: center;">Imágenes de referencia</h2>
+<section class="carousel">
+    <img src="media/Residencia-estudiantes1.jpg" class="active">
+    <img src="media/Residencia-estudiantes2.png">
+    <img src="media/Residencia-estudiantes3.jpg">
+    <img src="media/Residencia-estudiantes5.jpg">
+
+    <!-- Botones de navegación -->
+    <a class="prev" onclick="changeSlide(-1)">&#10094;</a>
+    <a class="next" onclick="changeSlide(1)">&#10095;</a>
+</section>
+
+<!-- Sección del Panel de Control del Estudiante -->
+<section class="student-panel" id="studentPanel">
+    <h3>Panel de Control del Estudiante</h3>
+    <p><strong>Información Personal:</strong> Juan Pérez</p>
+    <p><strong>Número de Identificación:</strong> 1234567890</p>
+    <p><strong>Estado de Solicitud:</strong> Aprobada</p>
+    <p><strong>Detalles de Habitación:</strong></p>
+    <ul>
+        <li><strong>Bloque:</strong> A</li>
+        <li><strong>Número de Habitación:</strong> 101</li>
+        <li><strong>Ocupación:</strong> 1/2</li>
+    </ul>
+    <p><strong>Estado de Pagos:</strong> Sin deudas pendientes.</p>
+    <p><strong>Reportar Problemas:</strong> <a href="reportes.html">Haga clic aquí</a> para reportar problemas de mantenimiento o solicitar un cambio de habitación.</p>
+</section>
+
+<!-- Sección de Gestión de Residencias y Pagos -->
+<section class="residences-management">
+    <h3>Gestión de Residencias</h3>
+    <p>Aquí puedes ver las residencias disponibles y gestionar tu pago.</p>
+
+    <h4>Lista de Residencias</h4>
+    <table>
+        <thead>
+            <tr>
+                <th>Residencia</th>
+                <th>Bloque</th>
+                <th>Número de Habitaciones</th>
+                <th>Ocupación</th>
+                <th>Acción</th> <!-- Nueva columna para la acción -->
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Residencia A</td>
+                <td>A</td>
+                <td>30</td>
+                <td>20/30</td>
+                <td>
+                    <button class="submit-button" onclick="selectResidence('Residencia A', 'A', 30)">Seleccionar</button>
+                    <button class="submit-button" onclick="showDetails('Residencia A', 'media/Residencia-estudiantes1.jpg', 'Descripción de la Residencia A', 'Ubicación de la Residencia A')">Ver Más</button>
+                </td>
+            </tr>
+            <tr>
+                <td>Residencia B</td>
+                <td>B</td>
+                <td>40</td>
+                <td>25/40</td>
+                <td>
+                    <button class="submit-button" onclick="selectResidence('Residencia B', 'B', 40)">Seleccionar</button>
+                    <button class="submit-button" onclick="showDetails('Residencia B', 'media/Residencia-estudiantes2.png', 'Descripción de la Residencia B', 'Ubicación de la Residencia B')">Ver Más</button>
+                </td>
+            </tr>
+            <tr>
+                <td>Residencia C</td>
+                <td>C</td>
+                <td>50</td>
+                <td>35/50</td>
+                <td>
+                    <button class="submit-button" onclick="selectResidence('Residencia C', 'C', 50)">Seleccionar</button>
+                    <button class="submit-button" onclick="showDetails('Residencia C', 'media/Residencia-estudiantes3.jpg', 'Descripción de la Residencia C', 'Ubicación de la Residencia C')">Ver Más</button>
+                </td>
+            </tr>
+            <!-- Agregar más residencias según sea necesario -->
+        </tbody>
+    </table>
+
+    <div class="payment-section">
+        <h4>Gestión de Pagos</h4>
+        <div class="card-section" id="cardSection">
+            <h4>Ingresa los detalles de tu tarjeta</h4>
+            <label for="cardNumber">Número de Tarjeta:</label>
+            <input type="text" id="cardNumber" placeholder="1234 5678 9123 4567" required>
+
+            <label for="cardHolder">Nombre del Titular:</label>
+            <input type="text" id="cardHolder" placeholder="Juan Pérez" required>
+
+            <label for="expirationDate">Fecha de Expiración:</label>
+            <input type="text" id="expirationDate" placeholder="MM/AA" required>
+
+            <label for="cvv">CVV:</label>
+            <input type="text" id="cvv" placeholder="123" required>
+
+            <button class="submit-button" onclick="processPayment()">Realizar Pago</button>
+        </div>
+    </div>
+</section>
+
+<!-- Modal para Detalles de Residencias -->
+<div id="myModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <h2 id="residenceTitle">Detalles de Residencia</h2>
+        <img id="residenceImage" src="" alt="Imagen de Residencia" style="width: 100%; height: auto;">
+        <p id="residenceDescription"></p>
+        <p><strong>Ubicación:</strong> <span id="residenceLocation"></span></p>
+    </div>
+</div>
+
+<footer>
+    <p>Síguenos en nuestras redes sociales:
+        <a href="https://facebook.com">Facebook</a> |
+        <a href="https://twitter.com">Twitter</a> |
+        <a href="https://instagram.com">Instagram</a>
+    </p>
+</footer>
+
+<script>
+    let currentSlide = 0;
+    const slides = document.querySelectorAll(".carousel img");
+
+    function showSlide(n) {
+        slides.forEach((slide, index) => {
+            slide.classList.remove("active");
+            if (index === n) {
+                slide.classList.add("active");
+            }
+        });
+    }
+
+    function changeSlide(n) {
+        currentSlide += n;
+        if (currentSlide >= slides.length) {
+            currentSlide = 0;
+        }
+        if (currentSlide < 0) {
+            currentSlide = slides.length - 1;
+        }
+        showSlide(currentSlide);
+    }
+
+    // Mostrar el primer slide al cargar la página
+    showSlide(currentSlide);
+
+    // Variable para simular estado de inicio de sesión
+    let isLoggedIn = true; // Cambia esto a false para simular que el usuario no ha iniciado sesión
+
+    function loadStudentPanel() {
+        if (isLoggedIn) {
+            document.getElementById("studentPanel").classList.add("active");
+        }
+    }
+
+    function selectResidence(residenceName, block, numberOfRooms) {
+        // Mostrar la sección de pago
+        document.getElementById("cardSection").style.display = "block";
+        
+        // Aquí puedes añadir lógica para mostrar el nombre de la residencia seleccionada si es necesario.
+        console.log(`Residencia seleccionada: ${residenceName}, Bloque: ${block}, Habitaciones: ${numberOfRooms}`);
+    }
+
+    function processPayment() {
+        // Aquí puedes implementar la lógica para procesar el pago.
+        const cardNumber = document.getElementById("cardNumber").value;
+        const cardHolder = document.getElementById("cardHolder").value;
+        const expirationDate = document.getElementById("expirationDate").value;
+        const cvv = document.getElementById("cvv").value;
+
+        // Validación de campos
+        if (!cardNumber || !cardHolder || !expirationDate || !cvv) {
+            alert("Por favor, complete todos los campos de la tarjeta.");
+            return;
+        }
+
+        // Simulación de pago exitoso
+        alert("Pago realizado exitosamente.");
+        // Limpiar campos
+        document.getElementById("cardSection").style.display = "none"; // Ocultar sección de pago
+    }
+
+    function showDetails(residenceName, imageUrl, description, location) {
+        // Mostrar detalles en el modal
+        document.getElementById("residenceTitle").innerText = residenceName;
+        document.getElementById("residenceImage").src = imageUrl;
+        document.getElementById("residenceDescription").innerText = description;
+        document.getElementById("residenceLocation").innerText = location;
+
+        // Mostrar el modal
+        document.getElementById("myModal").style.display = "block";
+    }
+
+    function closeModal() {
+        document.getElementById("myModal").style.display = "none"; // Cerrar el modal
+    }
+
+    // Cargar el panel de control al cargar la página
+    loadStudentPanel();
+</script>
+
+</body>
+</html>

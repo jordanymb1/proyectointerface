@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicio de Sesión - Residencia ULEAM</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            box-sizing: border-box;
+            background-image: url('media/registrofondo.jpeg'); /* Cambia esto a tu imagen de fondo */
+            background-size: cover; /* Asegura que la imagen cubra toda la pantalla */
+            background-position: center;
+        }
+
+        /* Estilos del header y navegación */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            color: white;
+            display: flex;
+            justify-content: space-between; /* Mantiene el logo a la izquierda */
+            align-items: center;
+            padding: 15px 5%;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+
+        .logo h2 {
+            font-size: 24px;
+            margin: 0;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center; /* Centra el contenido del nav */
+            flex-grow: 1; /* Permite que el nav ocupe el espacio disponible */
+            gap: 15px; /* Espaciado entre enlaces */
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 14px; /* Ajuste de tamaño de fuente */
+            padding: 8px 12px; /* Espaciado interno */
+            border-radius: 5px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        nav a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            color: #ffcc00;
+        }
+
+        .form-container {
+            padding: 50px;
+            background-color: #f4f4f4;
+            text-align: center;
+            margin: 100px auto; /* Centra la tarjeta verticalmente y horizontalmente */
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 400px; /* Ancho máximo de la tarjeta */
+        }
+
+        .form-container h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .form-group input:focus {
+            border-color: #ffcc00;
+            outline: none;
+        }
+
+        .submit-button {
+            background-color: #ffcc00;
+            color: #333;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .submit-button:hover {
+            background-color: #e6b800;
+        }
+
+        .notification {
+            margin-top: 20px;
+            padding: 10px;
+            border-radius: 5px;
+            display: none; /* Oculto por defecto */
+        }
+
+        .success {
+            background-color: rgba(0, 255, 0, 0.1);
+            color: green;
+        }
+
+        .error {
+            background-color: rgba(255, 0, 0, 0.1);
+            color: red;
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 30px; /* Espacio entre el formulario y el footer */
+        }
+
+        footer a {
+            color: #ffcc00;
+            text-decoration: none;
+        }
+
+        .recover-password {
+            margin-top: 10px;
+            font-size: 14px;
+            cursor: pointer;
+            color: #007bff; /* Color del enlace de recuperación */
+        }
+
+        .recover-container {
+            display: none; /* Ocultar por defecto */
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="logo">
+        <h2>Residencia ULEAM</h2>
+    </div>
+    <nav>
+        <a href="index.html">Inicio</a>
+        <a href="registro.html">Registro</a>
+        <a href="politica.html">Política de Residencia</a>
+    </nav>
+</header>
+
+<div class="form-container">
+    <h2>Inicio de Sesión</h2>
+    <form id="loginForm">
+        <div class="form-group">
+            <label for="username">Nombre de Usuario</label>
+            <input type="text" id="username" name="username" required>
+        </div>
+        <div class="form-group">
+            <label for="password">Contraseña</label>
+            <input type="password" id="password" name="password" required>
+        </div>
+        <button type="submit" class="submit-button">Iniciar Sesión</button>
+        <div class="recover-password" id="recoverLink">¿Olvidaste tu contraseña?</div>
+    </form>
+    <div class="notification" id="notification"></div>
+
+    <div class="recover-container" id="recoverContainer">
+        <h2>Recuperar Contraseña</h2>
+        <form id="recoverForm">
+            <div class="form-group">
+                <label for="recoverEmail">Correo Electrónico</label>
+                <input type="email" id="recoverEmail" name="recoverEmail" required>
+            </div>
+            <button type="submit" class="submit-button">Enviar Solicitud</button>
+        </form>
+        <div class="notification" id="recoverNotification"></div>
+    </div>
+</div>
+
+<footer>
+    <p>Síguenos en nuestras redes sociales:
+        <a href="https://facebook.com">Facebook</a> |
+        <a href="https://twitter.com">Twitter</a> |
+        <a href="https://instagram.com">Instagram</a>
+    </p>
+</footer>
+
+<script>
+    document.getElementById("loginForm").addEventListener("submit", function(event) {
+        event.preventDefault(); // Prevenir el envío del formulario
+
+        // Obtener valores de los campos
+        const username = document.getElementById("username").value.trim();
+        const password = document.getElementById("password").value.trim();
+
+        // Validación de campos
+        if (!username || !password) {
+            displayNotification("Por favor, complete todos los campos obligatorios.", "error");
+            return;
+        }
+
+        // Simulación de inicio de sesión exitoso (aquí puedes agregar lógica de backend)
+        displayNotification("Inicio de sesión exitoso.", "success");
+        // Redirigir al panel de control (cambia 'dashboard.html' a tu página de destino)
+        setTimeout(() => {
+            window.location.href = 'dashboard.html'; // Cambia esto a tu panel de control
+        }, 2000);
+    });
+
+    document.getElementById("recoverLink").addEventListener("click", function() {
+        document.getElementById("recoverContainer").style.display = "block";
+        document.getElementById("loginForm").style.display = "none";
+    });
+
+    document.getElementById("recoverForm").addEventListener("submit", function(event) {
+        event.preventDefault(); // Prevenir el envío del formulario
+
+        // Obtener valores de los campos
+        const recoverEmail = document.getElementById("recoverEmail").value.trim();
+
+        // Validación de campos
+        if (!recoverEmail) {
+            displayRecoverNotification("Por favor, ingrese su correo electrónico.", "error", "recoverNotification");
+            return;
+        }
+
+        // Simulación de recuperación de contraseña (aquí puedes agregar lógica de backend)
+        displayRecoverNotification("Se ha enviado un enlace para recuperar la contraseña a su correo electrónico.", "success", "recoverNotification");
+        setTimeout(() => {
+            document.getElementById("recoverContainer").style.display = "none";
+            document.getElementById("loginForm").style.display = "block"; // Regresar al formulario de inicio de sesión
+        }, 3000);
+    });
+
+    function displayNotification(message, type) {
+        const notification = document.getElementById("notification");
+        notification.innerText = message;
+        notification.className = `notification ${type}`;
+        notification.style.display = "block"; // Mostrar notificación
+
+        // Ocultar la notificación después de 3 segundos
+        setTimeout(() => {
+            notification.style.display = "none";
+        }, 3000);
+    }
+
+    function displayRecoverNotification(message, type, elementId) {
+        const notification = document.getElementById(elementId);
+        notification.innerText = message;
+        notification.className = `notification ${type}`;
+        notification.style.display = "block"; // Mostrar notificación
+
+        // Ocultar la notificación después de 3 segundos
+        setTimeout(() => {
+            notification.style.display = "none";
+        }, 3000);
+    }
+</script>
+
+</body>
+</html>
